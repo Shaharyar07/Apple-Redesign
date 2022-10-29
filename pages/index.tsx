@@ -1,10 +1,36 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import { Tab } from "@headlessui/react";
 import Image from "next/image";
 import Header from "../components/Header";
 import Landing from "../components/Landing";
+import { useState } from "react";
 
 const Home: NextPage = () => {
+  function classNames(...classes: any) {
+    return classes.filter(Boolean).join(" ");
+  }
+  let [categories] = useState([
+    {
+      id: 1,
+      title: "Does drinking coffee make you smarter?",
+      date: "5h ago",
+      commentCount: 5,
+      shareCount: 2,
+    },
+    {
+      id: 2,
+      title: "So you've bought coffee... now what?",
+      date: "2h ago",
+      commentCount: 3,
+      shareCount: 2,
+    },
+
+    
+
+  
+  ]);
+
   return (
     <div>
       <Head>
@@ -20,6 +46,31 @@ const Home: NextPage = () => {
           <h1 className='text-center text-4xl font-medium tracking-wide text-white md:text-5xl'>
             New Promo
           </h1>
+          <Tab.Group>
+            <Tab.List className='flex justify-center'>
+              {categories.map((category: any) => (
+                <Tab
+                  key={category._id}
+                  id={category._id}
+                  className={({ selected }) =>
+                    `whitespace-nowrap rounded-t-lg py-3 px-5 text-sm font-light outline-none md:py-4 md:px-6 md:text-base ${
+                      selected
+                        ? "borderGradient bg-[#35383C] text-white"
+                        : "border-b-2 border-[#35383C] text-[#747474]"
+                    }`
+                  }
+                >
+                  {category.title}
+                </Tab>
+              ))}
+            </Tab.List>
+            <Tab.Panels className='mx-auto max-w-fit pt-10 pb-24 sm:px-4'>
+              <Tab.Panel className='tabPanel'>{"showProducts"}</Tab.Panel>
+              <Tab.Panel className='tabPanel'>{"showProducts"}</Tab.Panel>
+              <Tab.Panel className='tabPanel'>{"showProducts"}</Tab.Panel>
+              <Tab.Panel className='tabPanel'>{"showProducts"}</Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
         </div>
       </section>
     </div>
